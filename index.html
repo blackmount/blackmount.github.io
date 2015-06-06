@@ -8,16 +8,24 @@
                 margin: 0;
                 background-color: black;
                 background-image: url('1.gif');
-                background-repeat: repeat-x;
+                background-repeat: no-repeat;
                 background-size: 100%;
                 font-family: Courier, monospace;
+            }
+            img#glass {
+                opacity: 0.5;
+                width: 100%;
+                position: fixed;
+                top: 0px;
+                left: 0px;
+                z-index: -1;
             }
             div.menu {
                 margin: 1em;
                 padding: .5em;
                 display: inline-block;
                 background-color: rgba(255, 255, 255, .5);
-                border: 0.1em solid rgba(0, 0, 0, .2);
+                border: 0.1em solid rgba(128, 128, 128, .2);
             }
             h1 {
                 font-size: 1em;
@@ -29,6 +37,7 @@
         </style>
     </head>
     <body>
+        <img id="glass" src="glass.png" alt="You look through a rainy window."/>
         <div class="menu">
             <h1>$ blackmount</h1>
             <p>select hard drive</p>
