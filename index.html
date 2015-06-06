@@ -20,9 +20,10 @@
                 left: 0px;
                 z-index: -1;
             }
-            div.menu {
+            div.tab {
                 margin: 1em;
                 padding: .5em;
+                max-width: 50em;
                 display: inline-block;
                 background-color: rgba(255, 255, 255, .5);
                 border: 0.1em solid rgba(128, 128, 128, .2);
@@ -30,7 +31,7 @@
             h1 {
                 font-size: 1em;
             }
-            ol a {
+            a {
                 color: black;
                 text-decoration: none;
             }
@@ -38,13 +39,84 @@
     </head>
     <body>
         <img id="glass" src="glass.png" alt="You look through a rainy window."/>
-        <div class="menu">
+        <div id="menu" class="tab">
             <h1>$ blackmount</h1>
             <p>select hard drive</p>
             <ol>
-                <li><a href="#" accesskey="1">/dev/recent_undertakings</a></li>
-                <li><a href="#" accesskey="2">/dev/about</a></li>
+                <li><a href="#recent_undertakings" accesskey="1">/dev/recent_undertakings</a></li>
+                <li><a href="#about" accesskey="2">/dev/about</a></li>
             </ol>
         </div>
+        <div id="recent_undertakings" class="tab">
+            <h1>$ <a href="#menu">unmount</a></h1>
+            <p>dd if=/dev/recent_untertakings of=/dev/screen</p>
+            <dl>
+                <dt>Eternal Dragonfly: The Post War Period</dt>
+                <dd>[status: IN PRODUCTION]</dd>
+                <dd>
+                    description: A POSTAPOCALYPTIC POINT AND CLICK JOURNEY
+                </dd>
+                <dt>Cable Maze</dt>
+                <dd>[status: PRE-PRODUCTION]</dd>
+                <dd>
+                    description: A TECH NOIR NOVEL AUDIO BLOG.
+                </dd>
+                <dd>
+                    FICTIVE STORIES PLACED IN THE NON-FICTIVE SCENERY
+                    OF KOWLOON WALLED CITY
+                </dd>
+                <dt>Machines of Loving Grace</dt>
+                <dd>[status: ANNOUNCED]</dd>
+            </dl>
+        </div>
+        <div id="about" class="tab">
+            <h1>$ <a href="#menu">unmount</a></h1>
+            <p>dd if=/dev/about of=/dev/screen</p>
+            <p>
+                Blackmount is a small enterprise based in Berlin (Germany)
+                and Melbourne (Australia).
+            </p>
+            <dl>
+                <dd>[status: START-UP PHASE]</dd>
+            </dl>
+        </div>
+        <script>
+            tabify();
+            function tabify() {
+                var links = internalLinks();
+                var targets = [];
+                for (var i = 0; i < links.length; i++) {
+                    addClickAction(links[i], targets);
+                }
+                show(document.getElementById('menu'));
+            }
+            function internalLinks() {
+                return document.querySelectorAll('a[href^="#"]');
+            }
+            function addClickAction(element, targets) {
+                var targetId = element.getAttribute('href').slice(1);
+                var target = document.getElementById(targetId);
+                if (!target) {
+                    return;
+                }
+                targets.push(target);
+                element.onclick = function () {
+                    targets.forEach(hide);
+                    target.style.display = null;
+                    return false;
+                };
+                hide(target);
+            }
+            function hide(element) {
+                element.style.display = 'none';
+            }
+            function show(element) {
+                element.style.display = null;
+            }
+            function display(target, all) {
+                // hide all
+                // display target
+            }
+        </script>
     </body>
 </html>
