@@ -7,9 +7,6 @@
             body {
                 margin: 0;
                 background-color: black;
-                background-image: url('1.gif');
-                background-repeat: no-repeat;
-                background-size: 100%;
                 font-family: Courier, monospace;
             }
             img.background {
@@ -47,8 +44,8 @@
     <body>
         <img id="glass" src="glass.png" alt="You look through a rainy window."/>
         <section id="home">
+            <img class="background" src="1.gif" alt="A black mount."/>
             <div class="terminal">
-                <img class="background" src="1.gif" alt="A black mount."/>
                 <h1>$ blackmount</h1>
                 <p>select hard drive</p>
                 <ol>
@@ -58,8 +55,8 @@
             </div>
         </section>
         <section id="recent_undertakings">
+            <img class="background" src="2,5.gif" alt="A black mount of electronics in the background."/>
             <div class="terminal">
-                <img class="background" src="2,5.gif" alt="A black mount of electronics in the background."/>
                 <h1>$ <a href="#">unmount</a></h1>
                 <p>dd if=/dev/recent_untertakings of=/dev/screen</p>
                 <dl>
@@ -83,8 +80,8 @@
             </div>
         </section>
         <section id="about">
+            <img class="background" src="2,5.gif" alt="A black mount of electronics in the background."/>
             <div class="terminal">
-                <img class="background" src="3,5.gif" alt="A black mount of electronics in the background."/>
                 <h1>$ <a href="#">unmount</a></h1>
                 <p>dd if=/dev/about of=/dev/screen</p>
                 <p>
@@ -97,6 +94,8 @@
             </div>
         </section>
         <script>
+            addLoadingAnimation('recent_undertakings');
+            addLoadingAnimation('about');
             tabify();
             function tabify() {
                 var links = internalLinks();
@@ -108,6 +107,22 @@
                 window.onpopstate = function () {
                     showOnly(getElementByHash(location.hash), targets);
                 };
+            }
+            function addLoadingAnimation(id) {
+                var element = document.getElementById(id);
+                element.onshow = function() {
+                    loadingAnimation(element);
+                };
+            }
+            function loadingAnimation(element) {
+                var img = element.querySelector('img.background');
+                var terminal = element.querySelector('.terminal');
+                img.src = '2,5.gif';
+                hide(terminal);
+                setTimeout(function () {
+                    img.src = '3,5.gif';
+                    show(terminal);
+                }, 1000);
             }
             function internalLinks() {
                 return document.querySelectorAll('a[href^="#"]');
@@ -129,6 +144,9 @@
             }
             function show(element) {
                 element.style.display = null;
+                if (typeof(element.onshow) === 'function') {
+                    element.onshow();
+                }
             }
             function getElementByHash(hash) {
                 var id = idFromHash(hash);
