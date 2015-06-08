@@ -45,12 +45,17 @@
                     min-width: 90%;
                 }
             }
+            @keyframes fadein {
+                from { opacity: 0; }
+                to   { opacity: 1; }
+            }
         </style>
     </head>
     <body>
         <img id="glass" src="glass.png" alt="You look through a rainy window."/>
+        <img class="background" src="3,5.gif" alt="A black mount."/>
+        <img class="background" src="1.gif" alt="A black mount."/>
         <section id="home">
-            <img class="background" src="1.gif" alt="A black mount."/>
             <div class="terminal">
                 <h1>$ blackmount</h1>
                 <p>select hard drive</p>
@@ -124,8 +129,10 @@
                 var img = element.querySelector('img.background');
                 var terminal = element.querySelector('.terminal');
                 img.src = '2,5.gif';
+                img.style.animation = 'fadein 1s';
                 hide(terminal);
                 setTimeout(function () {
+                    img.style.animation = null;
                     img.src = '3,5.gif';
                     show(terminal);
                 }, 1000);
