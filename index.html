@@ -32,6 +32,15 @@
                 color: black;
                 text-decoration: none;
             }
+            form p {
+                white-space: nowrap;
+            }
+            input {
+                font-family: Courier, monospace;
+                font-size: 1em;
+                border-width: 0em;
+                background: none;
+            }
             @media (max-width: 52em) {
                 div.terminal {
                     min-width: 90%;
@@ -48,11 +57,16 @@
         <section id="home">
             <div class="terminal">
                 <h1>$ blackmount</h1>
-                <p>select hard drive</p>
                 <ol>
                     <li><a href="#recent_undertakings" accesskey="1">/dev/recent_undertakings</a></li>
                     <li><a href="#about" accesskey="2">/dev/about</a></li>
                 </ol>
+                <form action="#" onsubmit="selectItem()">
+                    <p>
+                        select hard drive [1/2]:
+                        <input type="text" size="54" maxlength="54"/>
+                    </p>
+                </form>
             </div>
         </section>
         <section id="recent_undertakings">
@@ -78,6 +92,12 @@
                     <dt>Machines of Loving Grace</dt>
                     <dd>[status: ANNOUNCED]</dd>
                 </dl>
+                <form action="#">
+                    <p>
+                        press enter to unmount:
+                        <input type="text" size="56" maxlength="56"/>
+                    </p>
+                </form>
             </div>
         </section>
         <section id="about">
@@ -92,6 +112,12 @@
                 <dl>
                     <dd>[status: START-UP PHASE]</dd>
                 </dl>
+                <form action="#">
+                    <p>
+                        press enter to unmount:
+                        <input type="text" size="56" maxlength="56"/>
+                    </p>
+                </form>
             </div>
         </section>
         <script>
@@ -111,7 +137,7 @@
             }
             function addLoadingAnimation(id) {
                 var element = document.getElementById(id);
-                element.onshow = function() {
+                element.onshow = function () {
                     loadLoadingAnimation(element);
                 };
             }
@@ -165,8 +191,13 @@
             }
             function show(element) {
                 element.style.display = null;
-                if (typeof(element.onshow) === 'function') {
+                if (typeof (element.onshow) === 'function') {
                     element.onshow();
+                }
+                var input = element.querySelector('input');
+                if (input) {
+                    input.value = '';
+                    input.focus();
                 }
             }
             function getElementByHash(hash) {
@@ -179,6 +210,15 @@
                 } else {
                     return hash.slice(1);
                 }
+            }
+            function selectItem() {
+                var input = document.querySelector('input');
+                var index = parseInt(input.value);
+                var link = document.querySelector('a[accesskey="' + index + '"]');
+                if (link) {
+                    link.click();
+                }
+                return false;
             }
         </script>
     </body>
