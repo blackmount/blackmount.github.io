@@ -36,10 +36,11 @@
             form p {
                 white-space: nowrap;
             }
-            input {
+            input, input:focus {
                 font-family: Courier, monospace;
                 font-size: 1em;
-                border-width: 0em;
+                border-width: 0;
+                outline-width: 0;
                 background: none;
             }
             @media (max-width: 52em) {
@@ -62,7 +63,7 @@
                     <li><a href="#recent_undertakings" accesskey="1">/dev/recent_undertakings</a></li>
                     <li><a href="#about" accesskey="2">/dev/about</a></li>
                 </ol>
-                <form action="#" onsubmit="selectItem()">
+                <form action="#" onsubmit="selectItem();return false;">
                     <p>
                         select hard drive [1/2]:
                         <input type="text" size="54" maxlength="54"/>
@@ -219,7 +220,6 @@
                 if (link) {
                     link.click();
                 }
-                return false;
             }
         </script>
     </body>
